@@ -197,8 +197,8 @@ const MOCK_DATA = {
     bySubject: [],
     recentSessions: [],
   },
-  studySessions: [] as StudySession[],
-  weakAreas: [] as WeakArea[],
+  studySessions: [] as unknown[],
+  weakAreas: [] as unknown[],
   questions: [] as Question[],
 };
 

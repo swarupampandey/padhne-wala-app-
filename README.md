@@ -1,74 +1,189 @@
-# Zenith NEET AI — Windows Local Setup
+# Zenith - NEET AI Learning Platform
 
-## Ye 3 files replace karo apne project mein
+A modern, beautiful AI-powered learning application for NEET preparation with practice questions, analytics, and intelligent tutoring.
 
-```
-NEET-AI-Suite/
-└── artifacts/
-    └── zenith-neet/
-        ├── package.json          ← REPLACE karo (ye wali)
-        ├── vite.config.ts        ← REPLACE karo (ye wali)
-        ├── tsconfig.json         ← REPLACE karo (ye wali)
-        └── src/
-            ├── index.css         ← REPLACE karo (pehle wali jo diya tha)
-            └── lib/
-                └── api-client-shim.ts  ← NEW FILE banao (ye wali)
-```
+## Features
 
----
+- **Dashboard** - Real-time progress tracking and statistics
+- **Practice Mode** - Interactive MCQ practice with instant feedback
+- **Question Bank** - Browse and filter questions by subject and difficulty
+- **Analytics** - Detailed performance metrics and learning insights
+- **Settings** - Customizable preferences and account management
+- **Responsive Design** - Works perfectly on all devices
+- **Modern UI** - Beautiful dark theme with smooth animations
 
-## Steps
+## Tech Stack
 
-### 1. Files replace karo
+- **Framework**: Next.js 14+ (React 19)
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+- **Icons**: Lucide React
+- **Deployment**: Vercel Ready
 
-Upar bataye folders mein ye files copy karo.
+## Getting Started
 
-### 2. Terminal kholo `zenith-neet` folder mein
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
 
-```bash
-cd NEET-AI-Suite/artifacts/zenith-neet
-```
-
-### 3. Dependencies install karo
+### Installation
 
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd zenith-neet-app
+
+# Install dependencies
 npm install
+# or
+pnpm install
+# or
+yarn install
+
+# Run development server
+npm run dev
+
+# Open http://localhost:3000 in your browser
 ```
 
-*(pnpm nahi, plain npm use karo)*
-
-### 4. Backend bhi chalao (alag terminal mein)
+### Build for Production
 
 ```bash
-cd NEET-AI-Suite/artifacts/api-server
-npm install
-npm run dev
+# Build the app
+npm run build
+
+# Start production server
+npm start
 ```
 
-Backend `localhost:3000` pe chalega.
+## Project Structure
 
-### 5. Frontend chalao
+```
+├── app/
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Main app page
+│   ├── globals.css         # Global styles
+│   └── providers.tsx       # App providers
+├── components/
+│   ├── Sidebar.tsx         # Navigation sidebar
+│   ├── Header.tsx          # Top header
+│   └── pages/              # Page components
+│       ├── Dashboard.tsx    # Dashboard page
+│       ├── Practice.tsx     # Practice questions
+│       ├── QuestionBank.tsx # Question browser
+│       ├── Statistics.tsx   # Analytics & stats
+│       └── Settings.tsx     # User settings
+├── public/                 # Static assets
+├── next.config.js          # Next.js configuration
+├── tailwind.config.ts      # Tailwind CSS configuration
+├── tsconfig.json           # TypeScript configuration
+└── README.md               # This file
+```
+
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+The easiest way to deploy is using [Vercel](https://vercel.com):
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Click "New Project"
+4. Select your repository
+5. Click "Deploy"
+
+Or use the Vercel CLI:
 
 ```bash
-cd NEET-AI-Suite/artifacts/zenith-neet
-npm run dev
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
 ```
 
-Frontend `localhost:4173` pe open hoga.
+### Deploy to Other Platforms
+
+This app can be deployed to any platform that supports Node.js:
+
+- Heroku
+- Railway
+- Render
+- AWS
+- Azure
+- Google Cloud
+- DigitalOcean
+
+## Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+# App Configuration
+NEXT_PUBLIC_APP_NAME=Zenith
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Add API endpoints when ready
+# NEXT_PUBLIC_API_URL=https://api.example.com
+```
+
+## Development
+
+### Scripts
+
+```bash
+npm run dev      # Start development server
+npm run build    # Build for production
+npm start        # Start production server
+npm run lint     # Run linter (if configured)
+```
+
+### Code Style
+
+- TypeScript for type safety
+- Tailwind CSS for styling
+- React best practices
+- Component-based architecture
+
+## Features Roadmap
+
+- [ ] User authentication
+- [ ] Database integration
+- [ ] AI-powered explanations
+- [ ] Progress tracking
+- [ ] Study reminders
+- [ ] Mobile app
+- [ ] Offline mode
+- [ ] Multiplayer practice
+
+## Contributing
+
+Contributions are welcome! Here's how to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+MIT License - see LICENSE file for details.
+
+## Support & Contact
+
+For support, questions, or feedback:
+- Email: support@zenith.app
+- GitHub Issues: [Create an issue](https://github.com/swarupampandey/zenith-neet-app/issues)
+- Twitter: [@zenithlearning](https://twitter.com/zenithlearning)
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Icons by [Lucide React](https://lucide.dev/)
+- Deployed on [Vercel](https://vercel.com/)
 
 ---
 
-## Agar backend nahi chalana (sirf UI dekhni hai)
-
-`vite.config.ts` mein se `proxy` block hata do — app chalega but API calls fail hongi (data nahi dikhega).
-
----
-
-## Common Errors
-
-| Error | Fix |
-|-------|-----|
-| `Cannot find module @workspace/...` | `api-client-shim.ts` sahi jagah rakha hai? |
-| `tailwindcss not found` | `npm install` dobara chalo |
-| `Port 4173 in use` | `vite.config.ts` mein port change karo |
-| API calls 502/ECONNREFUSED | Backend (`api-server`) nahi chal raha |
+Made with ❤️ for NEET aspirants

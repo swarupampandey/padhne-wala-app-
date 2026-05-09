@@ -1,62 +1,43 @@
 import type { Config } from 'tailwindcss'
 
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+const config: Config = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+        slate: {
+          900: '#0f172a',
+          800: '#1e293b',
+          700: '#334155',
+          600: '#475569',
+          500: '#64748b',
+          400: '#94a3b8',
+          300: '#cbd5e1',
+          50: '#f8fafc',
         },
-        success: 'hsl(var(--success))',
-        warning: 'hsl(var(--warning))',
-        destructive: 'hsl(var(--destructive))',
-        muted: 'hsl(var(--muted))',
-        'muted-foreground': 'hsl(var(--muted-foreground))',
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        card: 'hsl(var(--card))',
-        'card-foreground': 'hsl(var(--card-foreground))',
+        indigo: {
+          600: '#4f46e5',
+          400: '#818cf8',
+        },
+        green: {
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+        },
+        red: {
+          400: '#f87171',
+          500: '#ef4444',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      },
-      keyframes: {
-        'slide-in': {
-          from: { transform: 'translateX(-100%)', opacity: '0' },
-          to: { transform: 'translateX(0)', opacity: '1' },
-        },
-        'fade-in': {
-          from: { opacity: '0' },
-          to: { opacity: '1' },
-        },
-        'scale-in': {
-          from: { transform: 'scale(0.95)', opacity: '0' },
-          to: { transform: 'scale(1)', opacity: '1' },
-        },
-      },
-      animation: {
-        'slide-in': 'slide-in 0.3s ease-out',
-        'fade-in': 'fade-in 0.3s ease-out',
-        'scale-in': 'scale-in 0.2s ease-out',
+        sans: ['system-ui', 'sans-serif'],
       },
     },
   },
   plugins: [],
-} satisfies Config
+}
+
+export default config

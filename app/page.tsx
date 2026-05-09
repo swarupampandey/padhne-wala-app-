@@ -33,7 +33,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <Sidebar 
         currentPage={currentPage} 
         onNavigate={setCurrentPage}

@@ -2,7 +2,6 @@
   "name": "zenith-neet",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,17 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "lucide-react": "^0.400.0",
     "next": "^14.0.0",
-    "lucide-react": "^0.400.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.4.40",
     "tailwindcss": "^4.1.14",
-    "typescript": "^5.8.3",
-    "postcss": "^8.4.40"
+    "typescript": "^5.8.3"
   }
 }

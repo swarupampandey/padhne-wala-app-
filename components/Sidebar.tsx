@@ -20,34 +20,35 @@ export default function Sidebar({ currentPage, onNavigate, open }: SidebarProps)
   ]
 
   return (
-    <div className={`${open ? 'w-64' : 'w-20'} bg-slate-800 border-r border-slate-700 flex flex-col transition-all duration-300`}>
+    <div className={`${open ? 'w-72' : 'w-24'} bg-gradient-to-b from-slate-900/50 via-slate-800/50 to-slate-900/50 backdrop-blur-sm border-r border-slate-700/50 flex flex-col transition-all duration-300`}>
       {/* Logo */}
-      <div className="p-4 border-b border-slate-700 flex items-center justify-center">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
-            <Zap className="w-6 h-6 text-white" />
+      <div className="p-6 border-b border-slate-700/50 flex items-center justify-center">
+        <div className="flex items-center gap-3 group">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-pink-600 flex items-center justify-center shadow-lg group-hover:shadow-pink-500/50 transition-all group-hover:scale-110 group-hover:rotate-6">
+            <Zap className="w-6 h-6 text-white animate-pulse" />
           </div>
-          {open && <span className="font-bold text-white">Zenith</span>}
+          {open && <div className="space-y-1"><span className="font-black text-lg bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">Zenith</span><p className="text-xs text-slate-500">NEET AI</p></div>}
         </div>
       </div>
 
       {/* Menu */}
       <nav className="flex-1 p-4 space-y-2">
-        {menuItems.map((item) => {
+        {menuItems.map((item, idx) => {
           const Icon = item.icon
+          const colors = ['from-blue-600', 'from-violet-600', 'from-pink-600', 'from-green-600', 'from-orange-600']
           return (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id as Page)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
                 currentPage === item.id
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-slate-400 hover:bg-slate-700'
+                  ? `bg-gradient-to-r ${colors[idx]} to-transparent text-white shadow-lg shadow-violet-500/50`
+                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
               }`}
               title={item.label}
             >
-              <Icon className="w-5 h-5 flex-shrink-0" />
-              {open && <span className="text-sm font-medium">{item.label}</span>}
+              <Icon className={`w-5 h-5 flex-shrink-0 ${currentPage === item.id ? 'animate-glow' : 'group-hover:scale-110 transition-transform'}`} />
+              {open && <span className="text-sm font-semibold">{item.label}</span>}
             </button>
           )
         })}

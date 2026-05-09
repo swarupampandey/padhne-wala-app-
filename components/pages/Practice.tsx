@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Volume2, Flag, ChevronRight, Clock } from 'lucide-react'
+import { Volume2, Flag, ChevronRight, Clock, CheckCircle2, XCircle, Trophy } from 'lucide-react'
 
 interface Question {
   id: number
@@ -19,7 +19,7 @@ const mockQuestions: Question[] = [
     subject: 'Chemistry',
     options: ['A) 4', 'B) 6', 'C) 8', 'D) 12'],
     correct: 1,
-    explanation: 'Carbon has 6 protons in its nucleus, making its atomic number 6.',
+    explanation: 'Carbon has 6 protons in its nucleus. Atomic number is the number of protons.',
   },
   {
     id: 2,
@@ -27,7 +27,15 @@ const mockQuestions: Question[] = [
     subject: 'Biology',
     options: ['A) Mitochondria', 'B) Nucleus', 'C) Chloroplast', 'D) Ribosome'],
     correct: 2,
-    explanation: 'Photosynthesis takes place in the chloroplast, which contains chlorophyll.',
+    explanation: 'Photosynthesis takes place in the chloroplast, which contains chlorophyll pigments.',
+  },
+  {
+    id: 3,
+    question: 'What is the SI unit of force?',
+    subject: 'Physics',
+    options: ['A) Joule', 'B) Newton', 'C) Watt', 'D) Pascal'],
+    correct: 1,
+    explanation: 'Newton is the SI unit of force, named after Sir Isaac Newton.',
   },
 ]
 
@@ -62,13 +70,29 @@ export default function Practice() {
   }
 
   if (finished) {
+    const percentage = Math.round((score / mockQuestions.length) * 100)
     return (
       <div className="p-8 flex items-center justify-center min-h-screen">
-        <div className="bg-slate-800 border border-slate-700 rounded-xl p-12 text-center space-y-6 max-w-md">
-          <h2 className="text-3xl font-bold text-slate-50">Session Complete!</h2>
+        <div className="card-glow p-12 text-center space-y-6 max-w-md">
+          <div className="flex justify-center">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center animate-bounce">
+              <Trophy className="w-10 h-10 text-white" />
+            </div>
+          </div>
+          <h2 className="text-4xl font-bold gradient-text">Amazing!</h2>
           <div className="space-y-2">
-            <p className="text-5xl font-bold text-indigo-400">{score}/{mockQuestions.length}</p>
-            <p className="text-slate-400">Accuracy: {Math.round((score / mockQuestions.length) * 100)}%</p>
+            <p className="text-6xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">{score}/{mockQuestions.length}</p>
+            <p className="text-slate-400 text-lg">Accuracy: {percentage}%</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 my-6">
+            <div className="bg-slate-700/50 p-4 rounded-xl">
+              <p className="text-2xl font-bold text-green-400">{score}</p>
+              <p className="text-xs text-slate-400 mt-1">Correct</p>
+            </div>
+            <div className="bg-slate-700/50 p-4 rounded-xl">
+              <p className="text-2xl font-bold text-orange-400">{mockQuestions.length - score}</p>
+              <p className="text-xs text-slate-400 mt-1">Incorrect</p>
+            </div>
           </div>
           <button
             onClick={() => {
@@ -88,96 +112,105 @@ export default function Practice() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <div className="space-y-8">
-        {/* Progress */}
+    <div className="p-8 space-y-8 max-w-4xl mx-auto">
+      {/* Progress */}
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-50">Practice Questions</h2>
-            <p className="text-slate-400 mt-1">Question {currentQuestion + 1} of {mockQuestions.length}</p>
-          </div>
-          <div className="flex items-center gap-2 text-slate-400">
-            <Clock className="w-5 h-5" />
-            <span>{Math.ceil((mockQuestions.length - currentQuestion - 1) * 2)} min left</span>
-          </div>
+          <h2 className="text-3xl font-bold text-white">Practice Questions</h2>
+          <span className="badge-primary">Question {currentQuestion + 1}/{mockQuestions.length}</span>
         </div>
-
-        {/* Progress Bar */}
-        <div className="w-full bg-slate-700 rounded-full h-2">
-          <div
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 h-2 rounded-full transition-all duration-300"
+        <div className="w-full bg-slate-700/50 rounded-full h-3 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-violet-600 via-pink-600 to-red-600 transition-all duration-500"
             style={{ width: `${((currentQuestion + 1) / mockQuestions.length) * 100}%` }}
           ></div>
         </div>
+      </div>
 
-        {/* Question Card */}
-        <div className="bg-slate-800 border border-slate-700 rounded-xl p-8 space-y-6">
-          {/* Subject Badge */}
-          <div className="inline-block">
-            <span className="px-3 py-1 rounded-full bg-indigo-600/20 text-indigo-400 text-sm font-medium">
-              {question.subject}
-            </span>
+      {/* Question Card */}
+      <div className="card-glow p-8 space-y-6">
+        {/* Subject & Timing */}
+        <div className="flex items-center justify-between">
+          <span className="badge-primary uppercase text-xs">{question.subject}</span>
+          <div className="flex items-center gap-2 text-slate-400">
+            <Clock className="w-4 h-4" />
+            <span className="text-sm">Time: 2:45</span>
           </div>
-
-          {/* Question */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <p className="text-2xl font-semibold text-slate-50 flex-1">
-                {question.question}
-              </p>
-              <button className="p-2 hover:bg-slate-700 rounded-lg transition-colors flex-shrink-0">
-                <Volume2 className="w-5 h-5 text-slate-400" />
-              </button>
-            </div>
-          </div>
-
-          {/* Options */}
-          <div className="space-y-3">
-            {question.options.map((option, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleAnswer(idx)}
-                className={`w-full p-4 rounded-lg border-2 transition-all text-left font-medium ${
-                  selectedAnswer === idx
-                    ? isCorrect
-                      ? 'border-green-500 bg-green-500/10 text-green-400'
-                      : 'border-red-500 bg-red-500/10 text-red-400'
-                    : showResult && idx === question.correct
-                    ? 'border-green-500 bg-green-500/10 text-green-400'
-                    : 'border-slate-600 hover:border-slate-500 hover:bg-slate-700/50 text-slate-300'
-                }`}
-                disabled={showResult}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-
-          {/* Explanation */}
-          {showResult && (
-            <div className={`p-4 rounded-lg ${isCorrect ? 'bg-green-500/10 text-green-400' : 'bg-blue-500/10 text-blue-400'}`}>
-              <p className="font-semibold mb-2">{isCorrect ? '✓ Correct!' : 'Explanation:'}</p>
-              <p className="text-sm">{question.explanation}</p>
-            </div>
-          )}
         </div>
 
-        {/* Actions */}
-        {showResult && (
-          <div className="flex gap-4">
-            <button className="flex-1 btn-secondary flex items-center justify-center gap-2">
-              <Flag className="w-4 h-4" />
-              Mark for Review
-            </button>
+        {/* Question Text */}
+        <div className="space-y-4">
+          <p className="text-xl font-semibold text-white leading-relaxed">
+            {question.question}
+          </p>
+          <button className="p-2 hover:bg-slate-700/50 rounded-lg transition-colors">
+            <Volume2 className="w-5 h-5 text-slate-400 hover:text-blue-400" />
+          </button>
+        </div>
+
+        {/* Options */}
+        <div className="space-y-3 py-4">
+          {question.options.map((option, idx) => (
             <button
-              onClick={handleNext}
-              className="flex-1 btn-primary flex items-center justify-center gap-2"
+              key={idx}
+              onClick={() => handleAnswer(idx)}
+              disabled={showResult}
+              className={`w-full p-4 rounded-xl border-2 transition-all text-left font-medium text-lg ${
+                selectedAnswer === idx
+                  ? isCorrect
+                    ? 'border-green-500 bg-green-500/10 text-green-300 shadow-lg shadow-green-500/30'
+                    : 'border-red-500 bg-red-500/10 text-red-300 shadow-lg shadow-red-500/30'
+                  : showResult && idx === question.correct
+                  ? 'border-green-500 bg-green-500/10 text-green-300 shadow-lg shadow-green-500/30'
+                  : 'border-slate-600 bg-slate-800/50 text-slate-300 hover:border-slate-500 hover:bg-slate-700/50'
+              }`}
             >
-              {currentQuestion === mockQuestions.length - 1 ? 'Finish' : 'Next'}
-              <ChevronRight className="w-4 h-4" />
+              <div className="flex items-center gap-3">
+                {selectedAnswer === idx && (
+                  isCorrect ? (
+                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                  ) : (
+                    <XCircle className="w-5 h-5 flex-shrink-0" />
+                  )
+                )}
+                {showResult && idx === question.correct && selectedAnswer !== idx && (
+                  <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                )}
+                {option}
+              </div>
             </button>
+          ))}
+        </div>
+
+        {/* Explanation */}
+        {showResult && (
+          <div className={`p-4 rounded-xl border-2 space-y-2 ${
+            isCorrect
+              ? 'border-green-500/30 bg-green-500/10'
+              : 'border-amber-500/30 bg-amber-500/10'
+          }`}>
+            <p className={`font-semibold flex items-center gap-2 ${isCorrect ? 'text-green-400' : 'text-amber-400'}`}>
+              {isCorrect ? <CheckCircle2 className="w-5 h-5" /> : <XCircle className="w-5 h-5" />}
+              {isCorrect ? 'Correct!' : 'Incorrect'}
+            </p>
+            <p className="text-slate-300 text-sm">{question.explanation}</p>
           </div>
         )}
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-4 justify-between items-center">
+        <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-700/50 text-slate-300 hover:bg-slate-600/50 transition-all">
+          <Flag className="w-5 h-5" />
+          Mark for Review
+        </button>
+        <button 
+          onClick={handleNext}
+          disabled={!showResult}
+          className={`btn-primary disabled:opacity-50 disabled:cursor-not-allowed`}
+        >
+          {currentQuestion < mockQuestions.length - 1 ? 'Next' : 'Finish'} <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
     </div>
   )
